@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/background">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="109dp"
+            android:gravity="center_horizontal"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/logoecriture"
+                android:id="@+id/imageView3"
+                android:contentDescription="logo Domoum" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_height="0dp"
+            android:layout_weight="2.08"
+            android:layout_width="200dp"
+            android:gravity="center_vertical|center_horizontal">
+
+            <!-- Email Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp">
+                <EditText android:id="@+id/loginEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:hint="Email"
+
+                    android:textSize="15sp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Password Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp">
+                <EditText android:id="@+id/loginPw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:hint="Mot de passe"
+                    android:textSize="15sp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:text="Se connecter"
+                android:layout_marginTop="20dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnConnexion"
+                android:textColor="@color/Azure"
+                android:background="@color/BlueDomoumDark" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:layout_weight="0.19"
+            android:gravity="center_vertical|center_horizontal">
+
+            <ImageView
+                android:layout_width="71dp"
+                android:layout_height="42dp"
+                app:srcCompat="@drawable/account_circle_white_96x96"
+                android:id="@+id/imageView" />
+
+            <TextView
+                android:text="S'inscrire ?"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtRegister"
+                android:textColor="@color/Azure" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
