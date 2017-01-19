@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:title="Accueil"
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home" />
+        <item
+            android:id="@+id/nav_connexion"
+            android:icon="@drawable/vpn_key_black_72x72"
+            android:title="Se connecter" />
+        <item
+            android:id="@+id/nav_inscription"
+            android:icon="@drawable/person_add_black_96x96"
+            android:title="S'inscrire" />
+    </group>
+
+    <item android:title="Mes actions">
+        <menu>
+            <item
+                android:id="@+id/nav_favoris"
+                android:title="Mes Favoris"
+                android:icon="@drawable/favorite_border_black_96x96" />
+            <item
+                android:id="@+id/nav_sauv"
+                android:icon="@drawable/ic_save_black_48dp"
+                android:title="Mes annonces sauvegardées" />
+        </menu>
+    </item>
+
+</menu>

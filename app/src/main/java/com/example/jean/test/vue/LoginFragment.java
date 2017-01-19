@@ -1,11 +1,14 @@
 package com.example.jean.test.vue;
 
-import android.content.Intent;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,9 +25,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Un ecran d'identification (via email/mdp) -> identification par réseau social à voir plus tard
+ * A simple {@link Fragment} subclass.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginFragment extends Fragment {
     private String TAG = "Login activity...";
     private EditText loginEmail;
     private ArrayList<Utilisateur> lesUtilisateurs;
@@ -32,14 +35,20 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private TextView txtInscription;
 
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public LoginFragment() {
+        // Required empty public constructor
+    }
 
-        loginEmail = (EditText) findViewById(R.id.loginEmail);
-        loginMdp = (EditText) findViewById(R.id.loginPw);
-        btnLogin = (Button) findViewById(R.id.btnConnexion);
-        txtInscription = (TextView) findViewById(R.id.txtRegister);
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        loginEmail = (EditText) view.findViewById(R.id.loginEmail);
+        loginMdp = (EditText) view.findViewById(R.id.loginPw);
+        btnLogin = (Button) view.findViewById(R.id.btnConnexion);
+        txtInscription = (TextView) view.findViewById(R.id.txtRegister);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,11 +60,13 @@ public class LoginActivity extends AppCompatActivity {
         txtInscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, InscriptionActivity.class);
-                startActivity(intent);
+                InscriptionFragment inscriptionFragment = new InscriptionFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentContainer, inscriptionFragment);
+                fragmentTransaction.commit();
             }
         });
-
+        return view;
     }
 
     /**
@@ -79,14 +90,14 @@ public class LoginActivity extends AppCompatActivity {
                         if(success){
                             String email = jsonObject.getString("email");
                             String name = jsonObject.getString("name");
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("email", email);
-                            intent.putExtra("name", name);
-                            startActivity(intent);
+                            MainFragment mainFragment = new MainFragment();
+                            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.fragmentContainer, mainFragment);
+                            fragmentTransaction.commit();
 
                         }else{
                             Log.d(TAG, "Failed");
-                            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity().getApplicationContext());
                             builder.setMessage("Identifiant ou mot de passe incorrect")
                                     .setNegativeButton("Réessayer", null)
                                     .create()
@@ -99,13 +110,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
             };
             LoginRequest loginRequest = new LoginRequest(email, mdp, responseListener);
-            RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+            RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
             queue.add(loginRequest);
         }
     }
-
-
-
 
     /**
      * Methode qui teste la validité du format des identifiants de connexion
@@ -133,4 +141,3 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 }
-

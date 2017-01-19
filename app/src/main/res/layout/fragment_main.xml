@@ -1,0 +1,233 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jean.test.vue.MainFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.66"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_marginTop="60dp"
+                android:layout_marginRight="30dp"
+
+                android:layout_marginLeft="30dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@drawable/custom_border"
+                android:backgroundTint="@android:color/white"
+                android:layout_height="568dp"
+                android:layout_marginBottom="-10dp"
+                android:layout_weight="0.18">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/custom_border"
+                    android:layout_gravity="top"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ToggleButton
+                            android:backgroundTint="@android:color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tAchat"
+                            android:textOff="@string/achat"
+                            android:textOn="@string/achat"
+                            android:textColor="@color/Black" />
+
+                        <ToggleButton
+                            android:backgroundTint="@android:color/white"
+                            android:text="ToggleButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/Black"
+                            android:id="@+id/tLocation"
+                            android:textOff="@string/location"
+                            android:textOn="@string/location" />
+
+                        <ToggleButton
+                            android:backgroundTint="@android:color/white"
+                            android:text="ToggleButton"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/Black"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tViager"
+                            android:textOff="@string/viager"
+                            android:textOn="@string/viager" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ToggleButton
+                            android:backgroundTint="@android:color/white"
+                            android:text="ToggleButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/Black"
+                            android:id="@+id/tVente"
+                            android:textOff="@string/vente"
+                            android:textOn="@string/vente" />
+
+                        <ToggleButton
+                            android:backgroundTint="@android:color/white"
+                            android:text="ToggleButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tColocation"
+                            android:textColor="@color/Black"
+                            android:textOff="@string/colocation"
+                            android:textOn="@string/colocation" />
+
+                        <ToggleButton
+                            android:text="ToggleButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/Black"
+                            android:id="@+id/tEnchere"
+                            android:textOff="@string/Enchere"
+                            android:textOn="@string/Enchere"
+                            android:backgroundTint="@android:color/white" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/custom_border"
+                    android:layout_weight="1.06">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="69dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:text="Où ?"
+                            android:layout_width="36dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:layout_weight="0.11" />
+
+                        <AutoCompleteTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txtLieu"
+                            android:layout_weight="1" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="73dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:text="Budget ?"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4.26"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:layout_width="183dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:ems="10"
+                            android:id="@+id/txtPrix" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:weightSum="1"
+                        android:layout_weight="8.10">
+
+                        <TextView
+                            android:text="Type de bien ?"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txtType"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:textColor="?android:attr/textColorTertiary" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="132dp"
+                    android:gravity="bottom">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.00">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btnAutre"
+                            android:layout_weight="1"
+                            android:text="Autres" />
+
+                        <Button
+                            android:text="Rechercher"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/btnRechercher"
+                            android:layout_weight="1"
+                            style="@style/Widget.AppCompat.Button"
+                            android:backgroundTint="@color/BlueDomoumDark"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -12,7 +12,7 @@ import java.util.Map;
  */
 
 public class LoginRequest extends StringRequest {
-    private static final String SERVADR = "http://192.168.0.21/test/login.php";
+    private static final String SERVADR = "http://192.168.0.12/test/login.php";
     private Map<String,String> users;
 
     public LoginRequest(String email, String mdp, Response.Listener<String> listener) {

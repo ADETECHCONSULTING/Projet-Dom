@@ -1,13 +1,17 @@
 package com.example.jean.test.vue;
 
-import android.content.Intent;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -17,23 +21,33 @@ import com.example.jean.test.modele.InscriptionRequest;
 
 import org.json.JSONObject;
 
-public class InscriptionActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class InscriptionFragment extends Fragment {
     private EditText email;
     private EditText mdpConfirm;
     private EditText mdp;
     private EditText name;
     private Button btnInscription;
+    private TextView txtConnexion;
+
+    public InscriptionFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inscription);
-        email = (EditText) findViewById(R.id.registerEmail);
-        mdp = (EditText) findViewById(R.id.registerPw);
-        mdpConfirm = (EditText) findViewById(R.id.registerPwConfirm);
-        name = (EditText) findViewById(R.id.registerName);
-        btnInscription = (Button) findViewById(R.id.btnInscription);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_inscription, container, false);
+        email = (EditText) view.findViewById(R.id.registerEmail);
+        mdp = (EditText) view.findViewById(R.id.registerPw);
+        mdpConfirm = (EditText) view.findViewById(R.id.registerPwConfirm);
+        name = (EditText) view.findViewById(R.id.registerName);
+        btnInscription = (Button) view.findViewById(R.id.btnInscription);
+        txtConnexion = (TextView) view.findViewById(R.id.labelDejaInscrit);
         btnInscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,10 +68,12 @@ public class InscriptionActivity extends AppCompatActivity {
 
                                 boolean success = jsonObject.getBoolean("success");
                                 if (success) {
-                                    Intent intent = new Intent(InscriptionActivity.this, LoginActivity.class);
-                                    startActivity(intent);
+                                    MainFragment mainFragment = new MainFragment();
+                                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                                    fragmentTransaction.replace(R.id.fragmentContainer, mainFragment);
+                                    fragmentTransaction.commit();
                                 } else {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(InscriptionActivity.this);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity().getApplicationContext());
                                     builder.setMessage("Login déjà existant")
                                             .setNegativeButton("Réessayer", null)
                                             .create()
@@ -70,12 +86,23 @@ public class InscriptionActivity extends AppCompatActivity {
                     };
 
                     InscriptionRequest inscriptionRequest = new InscriptionRequest(sEmail, sMdp, sName, responseListener);
-                    RequestQueue queue = Volley.newRequestQueue(InscriptionActivity.this);
+                    RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
                     queue.add(inscriptionRequest);
                 }
             }
         });
 
+        txtConnexion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginFragment loginFragment = new LoginFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentContainer, loginFragment);
+                fragmentTransaction.commit();
+
+            }
+        });
+        return view;
     }
 
     private boolean validate() {
@@ -117,6 +144,5 @@ public class InscriptionActivity extends AppCompatActivity {
         }
         return valid;
     }
-
 
 }

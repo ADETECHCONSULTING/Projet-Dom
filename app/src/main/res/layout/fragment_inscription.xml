@@ -9,7 +9,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.jean.test.vue.InscriptionActivity"
     android:background="@drawable/background">
 
     <LinearLayout
@@ -25,21 +24,16 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:gravity="center_vertical|center_horizontal">
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_weight="0.27">
 
-            <ImageView
-                android:layout_width="298dp"
-                android:layout_height="104dp"
-                app:srcCompat="@drawable/logoecriture"
-                android:id="@+id/imageView4"
-                android:layout_gravity="center_vertical" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:gravity="center_horizontal"
-            android:layout_weight="1"
+            android:layout_weight="2.90"
             android:layout_width="200dp">
 
             <!-- Email Label -->
@@ -72,6 +66,20 @@
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
 
+            <!-- Name Label -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="12dp">
+                <EditText android:id="@+id/registerPrenom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="Prenom"
+
+                    android:textSize="15sp" />
+            </android.support.design.widget.TextInputLayout>
 
             <!-- Password Label -->
             <android.support.design.widget.TextInputLayout
@@ -110,6 +118,21 @@
                 android:id="@+id/btnInscription"
                 android:textColor="@color/Azure"
                 android:background="@color/BlueDomoumDark" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:gravity="center_vertical|center_horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/labelDejaInscrit"
+                android:text="@string/dejaInscrit"
+                android:textAlignment="viewStart"
+                android:textColor="@color/Azure" />
         </LinearLayout>
     </LinearLayout>
 

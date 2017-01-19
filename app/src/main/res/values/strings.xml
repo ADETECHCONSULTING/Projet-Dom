@@ -1,29 +1,27 @@
 <resources>
-    <string name="app_name">Test</string>
+    <string name="app_name">Domoum</string>
 
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Se connecter</string>
-    <string name="error_invalid_password">Le mot de passe est invalide</string>
-    <string name="error_incorrect_password">Le mot de passe est incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="name_drawer">profil</string>
-    <string name="recherche">rechercher</string>
-    <string name="action_settings">reglage</string>
     <string-array name="items">
         <item>Mes favoris</item>
         <item>Mes annonces sauvegardées</item>
         <item>Se connecter</item>
         <item>S\'inscrire</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="drawer_open">ouvrir</string>
-    <string name="drawer_close">fermer</string>
-    <string name="title_activity_main_nav">MainNavActivity</string>
+    <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="dejaInscrit"> Déjà inscrit ? Connectez-vous ! </string>
+    <string name="inscrire"> Pas encore inscrit ? Inscrivez-vous !</string>
+    <string name="action_settings">Reglages</string>
+    <string name="achat">Achat</string>
+    <string name="vente">Vente</string>
+    <string name="location">Location</string>
+    <string name="viager">Viager</string>
+    <string name="colocation">Colocation</string>
+    <string name="Enchere">Enchere</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
+
