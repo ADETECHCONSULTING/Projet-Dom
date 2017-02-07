@@ -33,14 +33,14 @@
             android:text="Annuler"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/button2"
+            android:id="@+id/btnAnnuler"
             android:layout_weight="1" />
 
         <Button
             android:text="Confirmer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/button"
+            android:id="@+id/btnConfirm"
             android:layout_weight="1"
             android:textColor="@android:color/white"
             android:backgroundTint="@color/BlueDomoumDark" />

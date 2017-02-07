@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.jean.test.R;
 import com.example.jean.test.modele.Filtre;
+import com.example.jean.test.modele.Ville;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,8 @@ public class MainActivity extends AppCompatActivity
     private MainFragment mainFragment;
     private LoginFragment loginFragment;
     private ArrayList<Filtre> lesFiltres;
-
+    private ArrayList<String> selectedFiltres;
+    private ArrayList<Ville> lesVilles;
 
 
     private InscriptionFragment inscriptionFragment;
@@ -157,4 +159,23 @@ public class MainActivity extends AppCompatActivity
     public ArrayList<Filtre> getLesFiltres() {
         return lesFiltres;
     }
+
+    public ArrayList<String> getSelectedFiltres() {
+        return selectedFiltres;
+    }
+
+    public void setSelectedFiltres(ArrayList<String> selectedFiltres) {
+        this.selectedFiltres = selectedFiltres;
+    }
+
+    public ArrayList<Ville> getLesVilles() {
+        return lesVilles;
+    }
+
+    public void setLesVilles(ArrayList<Ville> lesVilles) {
+        this.lesVilles = lesVilles;
+    }
+
+
+
 }

@@ -13,13 +13,13 @@
         android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="Domoum"
-        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".vue.MainActivity"
+            android:configChanges="orientation"
             android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".vue.AnnonceFragment" />
+        <activity android:name=".vue.DetailActivity"></activity>
     </application>
 
 </manifest>

@@ -20,6 +20,27 @@
     <string name="viager">Viager</string>
     <string name="colocation">Colocation</string>
     <string name="Enchere">Enchere</string>
+    <string name="autre">Autre</string>
+    <string name="Rechercher">Rechercher</string>
+    <string name="Où">Où ?</string>
+    <string name="Type">Type de bien ?</string>
+    <string name="Budget">Budget ?</string>
+    <string name="importe">peu importe</string>
+    <string name="En_savoir_plus"> En savoir plus </string>
+    <string-array name="villes">
+        <item>Paris</item>
+        <item>Marseille</item>
+        <item>Lyon</item>
+        <item>Toulouse</item>
+        <item>Brest</item>
+        <item>Caen</item>
+        <item>Sochaux</item>
+        <item>Evian</item>
+        <item>Montargis</item>
+        <item>Meudon</item>
+        <item>Ris-Orangis</item>
+    </string-array>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

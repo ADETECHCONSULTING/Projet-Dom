@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/background">
+    >
 
     <LinearLayout
         android:orientation="vertical"
@@ -59,6 +59,8 @@
                 android:layout_marginBottom="12dp">
                 <EditText android:id="@+id/registerName"
                     android:layout_width="match_parent"
+                    android:lines="1"
+                    android:singleLine="true"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:hint="Nom"
@@ -66,7 +68,7 @@
                     android:textSize="15sp" />
             </android.support.design.widget.TextInputLayout>
 
-            <!-- Name Label -->
+            <!-- Prenom Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,6 +77,8 @@
                 <EditText android:id="@+id/registerPrenom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:singleLine="true"
                     android:inputType="textPersonName"
                     android:hint="Prenom"
 

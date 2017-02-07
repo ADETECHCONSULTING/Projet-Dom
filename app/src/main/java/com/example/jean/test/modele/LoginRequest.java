@@ -15,6 +15,12 @@ public class LoginRequest extends StringRequest {
     private static final String SERVADR = "http://192.168.0.12/test/login.php";
     private Map<String,String> users;
 
+    /**
+     * Constructeur de la requete Login
+     * @param email
+     * @param mdp
+     * @param listener
+     */
     public LoginRequest(String email, String mdp, Response.Listener<String> listener) {
         super(Method.POST, SERVADR, listener, null);
         users = new HashMap<>();

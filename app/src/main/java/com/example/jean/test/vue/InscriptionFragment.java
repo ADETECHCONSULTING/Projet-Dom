@@ -1,6 +1,9 @@
 package com.example.jean.test.vue;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -31,7 +36,19 @@ public class InscriptionFragment extends Fragment {
     private EditText name;
     private Button btnInscription;
     private TextView txtConnexion;
+    private ImageView img;
+    private Bitmap background;
+    private Bitmap imgNav;
+    private BitmapDrawable backDrawable;
+    private RelativeLayout relativeLayout;
+    private int idBackground = R.drawable.background;
+    private int idImage;
+    private int idLayout = R.id.activity_inscription;
+    private RelativeLayout cLayout;
 
+    /**
+     * Constructeur vide de l'inscription
+     */
     public InscriptionFragment() {
         // Required empty public constructor
     }
@@ -42,6 +59,8 @@ public class InscriptionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_inscription, container, false);
+        cLayout = (RelativeLayout) view.findViewById(idLayout);
+        setBackground(cLayout, idBackground);
         email = (EditText) view.findViewById(R.id.registerEmail);
         mdp = (EditText) view.findViewById(R.id.registerPw);
         mdpConfirm = (EditText) view.findViewById(R.id.registerPwConfirm);
@@ -105,6 +124,10 @@ public class InscriptionFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Teste la validité des champs entrés par l'utilisateur
+     * @return
+     */
     private boolean validate() {
         boolean valid = true;
         String vEmail = email.getText().toString();
@@ -143,6 +166,78 @@ public class InscriptionFragment extends Fragment {
             mdpConfirm.setError(null);
         }
         return valid;
+    }
+
+    public void onDestroyView(){
+        super.onDestroyView();
+
+    }
+
+    /**
+     * Applique une image d'arrière plan
+     * @param id
+     */
+    public void loadBackground(int id){
+        background = BitmapFactory.decodeStream(getResources().openRawResource(id));
+        backDrawable = new BitmapDrawable(background);
+        relativeLayout.setBackgroundDrawable(backDrawable);
+    }
+
+    /**
+     * Retire l'image d'arriere plan pour liberer de l'espace memoire
+     */
+    public void unloadBackground(){
+        if(relativeLayout != null){
+            relativeLayout.setBackgroundDrawable(null);
+        }
+        if(backDrawable != null){
+            background.recycle();
+        }
+        backDrawable = null;
+    }
+
+    /**
+     * Charge une image
+     * @param id
+     */
+    public void loadImage(int id){
+        imgNav = BitmapFactory.decodeStream(getResources().openRawResource(id));
+        img.setImageBitmap(imgNav);
+    }
+
+    /**
+     * retire une image (à utiliser en changeant de vue)
+     */
+    public void unloadImage(){
+        if(img != null){
+            img.setImageBitmap(null);
+        }
+        if(imgNav != null){
+            imgNav.recycle();
+        }
+        imgNav = null;
+    }
+
+    /**
+     * Appelle la methode load et unload de l'arriere plan
+     * @param c
+     * @param sourceId
+     */
+    public void setBackground(RelativeLayout c, int sourceId){
+        unloadBackground();
+        relativeLayout = c;
+        loadBackground(sourceId);
+    }
+
+    /**
+     * Appelle la methode load et unload de l'image
+     * @param i
+     * @param sourceId
+     */
+    public void setImg(ImageView i, int sourceId){
+        unloadImage();
+        img = i;
+        loadImage(sourceId);
     }
 
 }

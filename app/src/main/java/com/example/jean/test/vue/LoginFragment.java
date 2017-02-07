@@ -1,16 +1,22 @@
 package com.example.jean.test.vue;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -34,6 +40,15 @@ public class LoginFragment extends Fragment {
     private EditText loginMdp;
     private Button btnLogin;
     private TextView txtInscription;
+    private ImageView img;
+    private Bitmap background;
+    private Bitmap imgNav;
+    private BitmapDrawable backDrawable;
+    private RelativeLayout relativeLayout;
+    private int idBackground = R.drawable.background;
+    private int idImage;
+    private int idLayout = R.id.activity_login;
+    private RelativeLayout cLayout;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -45,6 +60,8 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        cLayout = (RelativeLayout) view.findViewById(idLayout);
+        setBackground(cLayout, idBackground);
         loginEmail = (EditText) view.findViewById(R.id.loginEmail);
         loginMdp = (EditText) view.findViewById(R.id.loginPw);
         btnLogin = (Button) view.findViewById(R.id.btnConnexion);
@@ -124,13 +141,15 @@ public class LoginFragment extends Fragment {
         String email = loginEmail.getText().toString();
         String mdp = loginMdp.getText().toString();
 
-        if(email.isEmpty() /*|| Patterns.EMAIL_ADDRESS.matcher(email).matches()*/){
+        // Teste si l'email est vide ou si le texte entré n'a pas le format EMAIL
+        if(email.isEmpty() || Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             loginEmail.setError("Entrez une adresse email valide");
             valid = false;
         }else{
             loginEmail.setError(null);
         }
 
+        // teste si le mot de passe est vide ou si il n'est pas conforme aux limites posées
         if(mdp.isEmpty() || mdp.length() <= 3 || mdp.length() >= 16){
             loginMdp.setError("Mot de passe compris entre 3 et 16 caractères");
             valid = false;
@@ -138,6 +157,79 @@ public class LoginFragment extends Fragment {
             loginMdp.setError(null);
         }
         return valid;
+    }
+
+    public void onDestroyView(){
+        super.onDestroyView();
+
+    }
+
+    /**
+     * Applique une image d'arrière plan
+     * @param id
+     */
+    public void loadBackground(int id){
+        background = BitmapFactory.decodeStream(getResources().openRawResource(id));
+        backDrawable = new BitmapDrawable(background);
+        relativeLayout.setBackgroundDrawable(backDrawable);
+    }
+
+    /**
+     * Retire l'image d'arriere plan pour liberer de l'espace memoire
+     */
+    public void unloadBackground(){
+        if(relativeLayout != null){
+            relativeLayout.setBackgroundDrawable(null);
+        }
+        if(backDrawable != null){
+            background.recycle();
+        }
+        backDrawable = null;
+    }
+
+    /**
+     * Charge une image
+     * @param id
+     */
+    public void loadImage(int id){
+        imgNav = BitmapFactory.decodeStream(getResources().openRawResource(id));
+        img.setImageBitmap(imgNav);
+    }
+
+    /**
+     * retire une image de la vue
+     */
+    public void unloadImage(){
+        if(img != null){
+            img.setImageBitmap(null);
+        }
+        if(imgNav != null){
+            imgNav.recycle();
+        }
+        imgNav = null;
+    }
+
+
+    /**
+     * Appelle la methode load et unload de l'arriere plan
+     * @param c
+     * @param sourceId
+     */
+    public void setBackground(RelativeLayout c, int sourceId){
+        unloadBackground();
+        relativeLayout = c;
+        loadBackground(sourceId);
+    }
+
+    /**
+     * Appelle la methode load et unload de l'image
+     * @param i
+     * @param sourceId
+     */
+    public void setImg(ImageView i, int sourceId){
+        unloadImage();
+        img = i;
+        loadImage(sourceId);
     }
 
 }
