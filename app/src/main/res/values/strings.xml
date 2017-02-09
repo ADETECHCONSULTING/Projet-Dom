@@ -27,6 +27,9 @@
     <string name="Budget">Budget ?</string>
     <string name="importe">peu importe</string>
     <string name="En_savoir_plus"> En savoir plus </string>
+    <string name="retour">retour</string>
+    <string name="like">Mes Coups de coeurs</string>
+    <string name="fav"> Mes Favoris</string>
     <string-array name="villes">
         <item>Paris</item>
         <item>Marseille</item>

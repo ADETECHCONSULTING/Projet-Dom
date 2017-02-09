@@ -18,13 +18,13 @@
     <item android:title="Mes actions">
         <menu>
             <item
-                android:id="@+id/nav_favoris"
-                android:title="Mes Favoris"
-                android:icon="@drawable/favorite_border_black_96x96" />
+                android:id="@+id/nav_like"
+                android:icon="@drawable/favorite_border_black_96x96"
+                android:title="@string/like" />
             <item
-                android:id="@+id/nav_sauv"
-                android:icon="@drawable/ic_save_black_48dp"
-                android:title="Mes annonces sauvegardées" />
+                android:id="@+id/nav_fav"
+                android:icon="@drawable/star_outline_black_48x48"
+                android:title="@string/fav" />
         </menu>
     </item>
 

@@ -111,7 +111,6 @@ public class LoginFragment extends Fragment {
                             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.fragmentContainer, mainFragment);
                             fragmentTransaction.commit();
-
                         }else{
                             Log.d(TAG, "Failed");
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity().getApplicationContext());

@@ -11,9 +11,8 @@ public class Annonce {
     private String type;
     private String content;
     private String price;
-    private String property_type;
     private String city;
-    //private String picture_url;
+    private String picture_url;
 
     /**
      * Constructeur de la classe Annonce
@@ -23,19 +22,17 @@ public class Annonce {
      * @param type
      * @param content
      * @param price
-     * @param property_type
      * @param city
      */
-    public Annonce(String id, String url, String title, String type, String content, String price, String property_type, String city /*String picture_url*/) {
+    public Annonce(String id, String url, String title, String type, String content, String price, String city, String picture_url) {
         this.id = id;
         this.url = url;
         this.title = title;
         this.type = type;
         this.content = content;
         this.price = price;
-        this.property_type = property_type;
         this.city = city;
-        //this.picture_url = picture_url;
+        this.picture_url = picture_url;
     }
 
     public String getId() {
@@ -86,14 +83,6 @@ public class Annonce {
         this.price = price;
     }
 
-    public String getProperty_type() {
-        return property_type;
-    }
-
-    public void setProperty_type(String property_type) {
-        this.property_type = property_type;
-    }
-
     public String getCity() {
         return city;
     }
@@ -102,11 +91,11 @@ public class Annonce {
         this.city = city;
     }
 
-    /*public String getPicture_url() {
+    public String getPicture_url() {
         return picture_url;
     }
 
     public void setPicture_url(String picture_url) {
         this.picture_url = picture_url;
-    }*/
+    }
 }

@@ -15,6 +15,7 @@ import com.example.jean.test.modele.XMLAsynctask;
 
 public class AnnonceFragment extends Fragment {
     private XMLAsynctask xmlAsynctask;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +33,9 @@ public class AnnonceFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         XMLAdapter xmlAdapter = new XMLAdapter();
         rv.setAdapter(xmlAdapter);
-
+        String xmlURL = "https://fr-fr.roomlala.com/prod/file/welchome/ad_fr_be.xml";
         xmlAsynctask = new XMLAsynctask(xmlAdapter);
-        xmlAsynctask.execute("https://fr-fr.roomlala.com/prod/file/welchome/ad_fr_be.xml");
+        xmlAsynctask.execute(xmlURL);
     }
 
     @Override

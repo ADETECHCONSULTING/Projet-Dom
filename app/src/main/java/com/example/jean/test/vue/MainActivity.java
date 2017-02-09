@@ -1,5 +1,6 @@
 package com.example.jean.test.vue;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,19 +10,25 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jean.test.R;
+import com.example.jean.test.modele.Annonce;
 import com.example.jean.test.modele.Filtre;
 import com.example.jean.test.modele.Ville;
 
 import java.util.ArrayList;
+
+import de.cketti.mailto.EmailIntentBuilder;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -30,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar = null;
     private Intent intent;
     private String email;
+    private String contenu;
     private String name;
     private TextView txtEmail;
     private TextView txtName;
@@ -38,7 +46,8 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Filtre> lesFiltres;
     private ArrayList<String> selectedFiltres;
     private ArrayList<Ville> lesVilles;
-
+    private ArrayList<Annonce> mesAnnoncesFavorites;
+    private ArrayList<Annonce> mesAnnoncesLike;
 
     private InscriptionFragment inscriptionFragment;
     @Override
@@ -73,7 +82,29 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Envoyez", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(MainActivity.this, "Ce rapport nous aidera à améliorer cette application. Merci !", Toast.LENGTH_SHORT).show();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setTitle("Ecrivez-nous");
+                                final EditText input = new EditText(MainActivity.this);
+                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                        LinearLayout.LayoutParams.MATCH_PARENT);
+                                input.setLayoutParams(lp);
+                                builder.setView(input);
+
+                                builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        contenu = input.getText().toString();
+                                        sendEmail(contenu);
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                builder.show();
                             }
                         }).show();
             }
@@ -86,6 +117,20 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void sendEmail(String contenu) {
+        Intent emailIntent = EmailIntentBuilder.from(MainActivity.this)
+                .to("a.traore@domoum.com")
+                .subject("Correctifs: Application Domoum")
+                .body(contenu)
+                .build();
+        try{
+            startActivity(emailIntent);
+        }catch (Exception e){
+            Toast.makeText(this, "Il vous faut un support de messagerie. Par exemple : Gmail, Yahoo, etc...", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -141,10 +186,20 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, inscriptionFragment);
             fragmentTransaction.commit();
-        } else if (id == R.id.nav_favoris) {
-            Toast.makeText(this, "Vous n'avez aucun favoris", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_sauv) {
-            Toast.makeText(this, "Vous n'avez aucune annonces sauvegardées", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_like) {
+            if(mesAnnoncesLike == null) {
+                Toast.makeText(this, "Vous n'avez aucun coups de coeurs", Toast.LENGTH_SHORT).show();
+            }else{
+                LikeFragment likeFragment = new LikeFragment();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentContainer, likeFragment);
+                fragmentTransaction.commit();
+            }
+        } else if (id == R.id.nav_fav) {
+            if(mesAnnoncesFavorites == null) {
+                Toast.makeText(this, "Vous n'avez aucun favoris", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -176,6 +231,19 @@ public class MainActivity extends AppCompatActivity
         this.lesVilles = lesVilles;
     }
 
+    public ArrayList<Annonce> getMesAnnoncesFavorites() {
+        return mesAnnoncesFavorites;
+    }
 
+    public void setMesAnnoncesFavorites(ArrayList<Annonce> mesAnnoncesFavorites) {
+        this.mesAnnoncesFavorites = mesAnnoncesFavorites;
+    }
 
+    public ArrayList<Annonce> getMesAnnoncesLike() {
+        return mesAnnoncesLike;
+    }
+
+    public void setMesAnnoncesLike(ArrayList<Annonce> mesAnnoncesLike) {
+        this.mesAnnoncesLike = mesAnnoncesLike;
+    }
 }

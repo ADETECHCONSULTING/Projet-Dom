@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp">
 
@@ -13,7 +13,6 @@
         app:srcCompat="@drawable/ic_home"
         android:id="@+id/idImage"
         tools:layout_constraintTop_creator="1"
-        tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,6 +63,25 @@
         android:layout_marginStart="8dp"
         app:layout_constraintLeft_toRightOf="@+id/idImage"
         android:layout_marginLeft="8dp" />
+
+    <ImageView
+        app:srcCompat="@drawable/logo"
+        android:id="@+id/idLogoPartenaire"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="24dp"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+        android:layout_marginLeft="24dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline5"
+        app:layout_constraintGuide_begin="251dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="251dp" />
 
 
 </android.support.constraint.ConstraintLayout>

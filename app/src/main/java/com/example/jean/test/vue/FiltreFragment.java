@@ -120,6 +120,11 @@ public class FiltreFragment extends Fragment {
                 });
             }
 
+    /**
+     * Update la vue durant le scroll
+     * @param index
+     * @param value
+     */
     public void updateView(int index, String value){
         View v = myList.getChildAt(index -
                 myList.getFirstVisiblePosition());

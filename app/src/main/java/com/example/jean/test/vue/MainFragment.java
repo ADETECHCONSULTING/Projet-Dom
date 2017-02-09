@@ -34,17 +34,10 @@ import com.example.jean.test.modele.Ville;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -296,6 +289,10 @@ public class MainFragment extends Fragment {
 
     }
 
+    /**
+     * Change la couleur du bouton
+     * @param btnNum
+     */
     public void btnColorBlue(int btnNum) {
         switch (btnNum) {
             case 1:
@@ -319,6 +316,9 @@ public class MainFragment extends Fragment {
         }
     }
 
+    /**
+     * Rend la couleur initiale à tous les boutons
+     */
     public void decolore() {
         tAchat.setTextColor(getResources().getColor(R.color.Black));
         tVente.setTextColor(getResources().getColor(R.color.Black));
@@ -329,12 +329,19 @@ public class MainFragment extends Fragment {
     }
 
 
+    /**
+     * Charge l'image d'arriere plan
+     * @param id
+     */
     public void loadBackground(int id) {
         background = BitmapFactory.decodeStream(getResources().openRawResource(id));
         backDrawable = new BitmapDrawable(background);
         constraintLayout.setBackgroundDrawable(backDrawable);
     }
 
+    /**
+     * Décharge l'image d'arrière plan
+     */
     public void unloadBackground() {
         if (constraintLayout != null) {
             constraintLayout.setBackgroundDrawable(null);
@@ -345,11 +352,18 @@ public class MainFragment extends Fragment {
         backDrawable = null;
     }
 
+    /**
+     * Charge une image quelquonque
+     * @param id
+     */
     public void loadImage(int id) {
         imgNav = BitmapFactory.decodeStream(getResources().openRawResource(id));
         img.setImageBitmap(imgNav);
     }
 
+    /**
+     * Décharge une image quelquonque
+     */
     public void unloadImage() {
         if (img != null) {
             img.setImageBitmap(null);
@@ -360,61 +374,26 @@ public class MainFragment extends Fragment {
         imgNav = null;
     }
 
+    /**
+     * Met en place l'image d'arrière plan chargée
+     * @param c
+     * @param sourceId
+     */
     public void setBackground(ConstraintLayout c, int sourceId) {
         unloadBackground();
         constraintLayout = c;
         loadBackground(sourceId);
     }
 
+    /**
+     * Met en place l'image quelquonque chargée
+     * @param i
+     * @param sourceId
+     */
     public void setImg(ImageView i, int sourceId) {
         unloadImage();
         img = i;
         loadImage(sourceId);
-    }
-
-    public ArrayList<Annonce> parseXML(URL url) {
-        ArrayList<Annonce> lesAnnonces = new ArrayList<>();
-        try {
-            // Récupère l'ensemble du document xml à l'url donnée
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(url.openStream()));
-            doc.getDocumentElement().normalize();
-
-            // Récupère les élèments par le tag 'ad'
-            NodeList nodes = doc.getElementsByTagName("ad");
-
-            // Pour chaque 'ad' on recupère l'id, l'url, le titre, le type d'action(for rent...), le contenu de l'annonce,
-            // le type de propriété (chambre...), et la ville
-            for (int i = 0; i < nodes.getLength(); i++) {
-                Element element = (Element) nodes.item(i);
-                NodeList id = element.getElementsByTagName("id");
-                NodeList _url = element.getElementsByTagName("url");
-                NodeList title = element.getElementsByTagName("title");
-                NodeList type = element.getElementsByTagName("type");
-                NodeList content = element.getElementsByTagName("content");
-                NodeList price = element.getElementsByTagName("price");
-                NodeList property_type = element.getElementsByTagName("property_type");
-                NodeList city = element.getElementsByTagName("city");
-                //NodeList picture_url = element.getElementsByTagName("picture_url");
-
-                Element idLine = (Element) id.item(0);
-                Element urlLine = (Element) _url.item(0);
-                Element titleLine = (Element) title.item(0);
-                Element typeLine = (Element) type.item(0);
-                Element contentLine = (Element) content.item(0);
-                Element priceLine = (Element) price.item(0);
-                Element propertyTypeLine = (Element) property_type.item(0);
-                Element cityLine = (Element) city.item(0);
-
-                //On ajoute le tout dans un tableau de type Annonce
-                lesAnnonces.add(new Annonce(idLine.getTextContent(), urlLine.getTextContent(), titleLine.getTextContent(), typeLine.getTextContent(), contentLine.getTextContent(), priceLine.getTextContent(), propertyTypeLine.getTextContent(), cityLine.getTextContent()));
-                return lesAnnonces;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }
 
