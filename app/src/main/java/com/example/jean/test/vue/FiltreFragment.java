@@ -142,9 +142,9 @@ public class FiltreFragment extends Fragment {
         getFragmentManager().putFragment(savedState, "filtreFragment", filtreFragment);
     }
 
-    public void onDestroyView(){
-        super.onDestroyView();
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
 

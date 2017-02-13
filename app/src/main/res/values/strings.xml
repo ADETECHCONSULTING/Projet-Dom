@@ -15,7 +15,7 @@
     <string name="inscrire"> Pas encore inscrit ? Inscrivez-vous !</string>
     <string name="action_settings">Reglages</string>
     <string name="achat">Achat</string>
-    <string name="vente">Vente</string>
+    <string name="crowdfunding">Crowdfunding</string>
     <string name="location">Location</string>
     <string name="viager">Viager</string>
     <string name="colocation">Colocation</string>
@@ -25,6 +25,7 @@
     <string name="Où">Où ?</string>
     <string name="Type">Type de bien ?</string>
     <string name="Budget">Budget ?</string>
+    <string name="tous">Tout</string>
     <string name="importe">peu importe</string>
     <string name="En_savoir_plus"> En savoir plus </string>
     <string name="retour">retour</string>

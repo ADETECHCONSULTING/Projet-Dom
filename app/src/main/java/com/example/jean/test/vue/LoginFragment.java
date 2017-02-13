@@ -15,8 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -44,11 +44,11 @@ public class LoginFragment extends Fragment {
     private Bitmap background;
     private Bitmap imgNav;
     private BitmapDrawable backDrawable;
-    private RelativeLayout relativeLayout;
+    private FrameLayout frameLayout;
     private int idBackground = R.drawable.background;
     private int idImage;
-    private int idLayout = R.id.activity_login;
-    private RelativeLayout cLayout;
+    private int idLayout = R.id.loginLayout;
+    private FrameLayout cLayout;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -60,7 +60,7 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        cLayout = (RelativeLayout) view.findViewById(idLayout);
+        cLayout = (FrameLayout) view.findViewById(R.id.loginLayout);
         setBackground(cLayout, idBackground);
         loginEmail = (EditText) view.findViewById(R.id.loginEmail);
         loginMdp = (EditText) view.findViewById(R.id.loginPw);
@@ -170,15 +170,15 @@ public class LoginFragment extends Fragment {
     public void loadBackground(int id){
         background = BitmapFactory.decodeStream(getResources().openRawResource(id));
         backDrawable = new BitmapDrawable(background);
-        relativeLayout.setBackgroundDrawable(backDrawable);
+        frameLayout.setBackgroundDrawable(backDrawable);
     }
 
     /**
      * Retire l'image d'arriere plan pour liberer de l'espace memoire
      */
     public void unloadBackground(){
-        if(relativeLayout != null){
-            relativeLayout.setBackgroundDrawable(null);
+        if(frameLayout != null){
+            frameLayout.setBackgroundDrawable(null);
         }
         if(backDrawable != null){
             background.recycle();
@@ -214,9 +214,9 @@ public class LoginFragment extends Fragment {
      * @param c
      * @param sourceId
      */
-    public void setBackground(RelativeLayout c, int sourceId){
+    public void setBackground(FrameLayout c, int sourceId){
         unloadBackground();
-        relativeLayout = c;
+        frameLayout = c;
         loadBackground(sourceId);
     }
 
@@ -231,4 +231,8 @@ public class LoginFragment extends Fragment {
         loadImage(sourceId);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

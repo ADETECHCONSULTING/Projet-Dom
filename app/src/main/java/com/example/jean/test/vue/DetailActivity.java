@@ -1,13 +1,17 @@
 package com.example.jean.test.vue;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +23,7 @@ import java.util.ArrayList;
 
 import de.cketti.mailto.EmailIntentBuilder;
 
-public class DetailActivity extends Activity {
+public class DetailActivity extends AppCompatActivity {
     private TextView vdetail;
     private TextView txtEnSavoirPlus;
     private ImageView vimg;
@@ -27,7 +31,7 @@ public class DetailActivity extends Activity {
     private Button redirection;
     private TextView vprix;
     private String title;
-    private String urlImg;
+    private String[] urlImg;
     private String url;
     private String prix;
     private String city;
@@ -48,12 +52,15 @@ public class DetailActivity extends Activity {
     private Boolean boolLike = false;
     private Boolean boolFavoris = false;
     private ImageView vlogo;
+    private LinearLayout linearHS;
+    private String[] lesPhotos;
+    private String solourl;
     private MainActivity mainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_detail_sec);
         mesAnnoncesLike = new ArrayList<>();
         mesAnnoncesFavorites = new ArrayList<>();
         mainActivity = new MainActivity();
@@ -113,8 +120,7 @@ public class DetailActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if(!boolLike) {
-                    mesAnnoncesLike.add(new Annonce(id,url,title,detailMaison,content,prix,city,urlImg));
-                    mainActivity.setMesAnnoncesLike(mesAnnoncesLike);
+                    mesAnnoncesLike.add(new Annonce(id,url,title,detailMaison,content,prix,city,urlImg[0]));
                     Toast.makeText(DetailActivity.this, "L'annonce a été ajouté à vos coups de coeurs", Toast.LENGTH_SHORT).show();
                     like.setImageDrawable(getResources().getDrawable(R.drawable.favorite_black_48x48));
                     boolLike = true;
@@ -122,7 +128,6 @@ public class DetailActivity extends Activity {
                     like.setImageDrawable(getResources().getDrawable(R.drawable.favorite_outline_black_48x48));
                     Annonce mAnnonce = findAnnonce(id, mesAnnoncesLike);
                     mesAnnoncesLike.remove(mAnnonce);
-                    mainActivity.setMesAnnoncesLike(mesAnnoncesLike);
                     boolLike = false;
                 }
             }
@@ -136,20 +141,21 @@ public class DetailActivity extends Activity {
             public void onClick(View v) {
                 if(!boolFavoris) {
                     Toast.makeText(DetailActivity.this, "L'annonce a été ajouté à vos favoris", Toast.LENGTH_SHORT).show();
-                    mesAnnoncesFavorites.add(new Annonce(id, url,title,detailMaison,content,prix,city,urlImg));
-                    mainActivity.setMesAnnoncesFavorites(mesAnnoncesFavorites);
+                    mesAnnoncesFavorites.add(new Annonce(id, url,title,detailMaison,content,prix,city,urlImg[0]));
                     fav.setImageDrawable(getResources().getDrawable(R.drawable.star_black_48x48));
                     boolFavoris = true;
                 }else{
                     fav.setImageDrawable(getResources().getDrawable(R.drawable.star_outline_black_48x48));
                     Annonce mAnnonce = findAnnonce(id, mesAnnoncesFavorites);
                     mesAnnoncesFavorites.remove(mAnnonce);
-                    mainActivity.setMesAnnoncesFavorites(mesAnnoncesFavorites);
                     boolFavoris = false;
                 }
             }
         });
 
+        /**
+         * Gestion du logo partenaire
+         */
         vlogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +171,16 @@ public class DetailActivity extends Activity {
      * Affiche les détails concernant l'offre selectionnée
      */
     private void AffichageDetail() {
-        new ImageAsyncTask(vimg).execute(urlImg);
+        for(int i=0; i < urlImg.length; i++) {
+            ImageView imageView = new ImageView(this);
+            imageView.setId(i);
+            String _urlImg = caractereASupprimer(urlImg[i]);
+            imageView.setPadding(2,2,2,2);
+            new ImageAsyncTask(imageView).execute(_urlImg);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            linearHS.addView(imageView);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        }
         vtitle.setText(title);
         vcity.setText(city +" - "+ pays);
         vprix.setText(prix+" €");
@@ -180,7 +195,7 @@ public class DetailActivity extends Activity {
     private void RecupIntent() {
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
-        urlImg = intent.getStringExtra("urlImg");
+        urlImg = intent.getStringArrayExtra("urlImg");
         url = intent.getStringExtra("url");
         prix = intent.getStringExtra("prix");
         city = intent.getStringExtra("city");
@@ -190,6 +205,7 @@ public class DetailActivity extends Activity {
         logoId = intent.getIntExtra("logoId",0);
         pos = intent.getIntExtra("position", 0);
         id = intent.getStringExtra("id");
+        solourl = intent.getStringExtra("soloimg");
     }
 
     /**
@@ -209,22 +225,23 @@ public class DetailActivity extends Activity {
         txtEnSavoirPlus = (TextView) findViewById(R.id.idTextPlus);
         vtitle = (TextView) findViewById(R.id.idTitleDetail);
         vlogo = (ImageView) findViewById(R.id.idLogoDetail);
+        linearHS = (LinearLayout) findViewById(R.id.linearDetail);
     }
 
     /**
-     * Recupère l'id du logo pour afficher le bon logo partenaire sur l'annonce selectionnée
+     * Recupère l'id du logo pour afficher le bon logo partenaire sur l'annonce selectionnée (logoId à regler)
      * @param logoId
      */
     private void getLogoByID(int logoId) {
         switch (logoId){
             case 0:
-                vlogo.setImageDrawable(getResources().getDrawable(R.drawable.logo));
+                vlogo.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.roomlala, 108,108));
                 break;
             case 1:
-                vlogo.setImageDrawable(getResources().getDrawable(R.drawable.roomlala));
+                vlogo.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.logo, 108,108));
                 break;
             default:
-                vlogo.setImageDrawable(getResources().getDrawable(R.drawable.logo));
+                vlogo.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.logo, 108,108));
                 break;
         }
     }
@@ -243,4 +260,59 @@ public class DetailActivity extends Activity {
         }
         return annonce;
     }
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                         int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    public String caractereASupprimer(String url){
+        String _url = "";
+        if(url.contains("null")){
+            _url = url.replace("null","");
+        }else{
+            _url = url;
+        }
+        return _url;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 }

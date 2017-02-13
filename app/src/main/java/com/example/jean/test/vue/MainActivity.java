@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Filtre> lesFiltres;
     private ArrayList<String> selectedFiltres;
     private ArrayList<Ville> lesVilles;
-    private ArrayList<Annonce> mesAnnoncesFavorites;
-    private ArrayList<Annonce> mesAnnoncesLike;
+    public ArrayList<Annonce> mesAnnoncesFavorites;
+    public ArrayList<Annonce> mesAnnoncesLike;
 
     private InscriptionFragment inscriptionFragment;
     @Override
@@ -64,6 +64,11 @@ public class MainActivity extends AppCompatActivity
             txtEmail.setText(email);
             txtName.setText(name);
         }
+
+        if(getIntent().getParcelableArrayExtra("annoncesLike") != null){
+            mesAnnoncesLike = getIntent().getParcelableArrayListExtra("annoncesLike");
+            mesAnnoncesFavorites = getIntent().getParcelableArrayListExtra("annonceFav");
+        }
         //Activer le fragment
         mainFragment = new MainFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -72,7 +77,6 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.logo_blanc);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -135,11 +139,15 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        if(count == 0){
             super.onBackPressed();
+        }else {
+            getFragmentManager().popBackStack();
         }
     }
 
@@ -175,16 +183,19 @@ public class MainActivity extends AppCompatActivity
             MainFragment mainFragment = new MainFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, mainFragment);
+            fragmentTransaction.addToBackStack("home");
             fragmentTransaction.commit();
         }else if (id == R.id.nav_connexion) {
             loginFragment = new LoginFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, loginFragment);
+            fragmentTransaction.addToBackStack("connexion");
             fragmentTransaction.commit();
         } else if (id == R.id.nav_inscription) {
             inscriptionFragment = new InscriptionFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, inscriptionFragment);
+            fragmentTransaction.addToBackStack("inscription");
             fragmentTransaction.commit();
         } else if (id == R.id.nav_like) {
             if(mesAnnoncesLike == null) {
@@ -193,11 +204,18 @@ public class MainActivity extends AppCompatActivity
                 LikeFragment likeFragment = new LikeFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragmentContainer, likeFragment);
+                fragmentTransaction.addToBackStack("mes annonces like");
                 fragmentTransaction.commit();
             }
         } else if (id == R.id.nav_fav) {
             if(mesAnnoncesFavorites == null) {
                 Toast.makeText(this, "Vous n'avez aucun favoris", Toast.LENGTH_SHORT).show();
+            }else{
+                FavFragment favFragment = new FavFragment();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentContainer, favFragment);
+                fragmentTransaction.addToBackStack("mes annonces fav");
+                fragmentTransaction.commit();
             }
 
         }
@@ -235,15 +253,12 @@ public class MainActivity extends AppCompatActivity
         return mesAnnoncesFavorites;
     }
 
-    public void setMesAnnoncesFavorites(ArrayList<Annonce> mesAnnoncesFavorites) {
-        this.mesAnnoncesFavorites = mesAnnoncesFavorites;
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
-    public ArrayList<Annonce> getMesAnnoncesLike() {
-        return mesAnnoncesLike;
-    }
 
-    public void setMesAnnoncesLike(ArrayList<Annonce> mesAnnoncesLike) {
-        this.mesAnnoncesLike = mesAnnoncesLike;
-    }
 }

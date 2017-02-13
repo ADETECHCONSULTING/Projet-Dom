@@ -36,4 +36,9 @@ public class WebviewActivity extends AppCompatActivity {
         setContentView(webView);
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

@@ -31,7 +31,11 @@ public class AnnonceFragment extends Fragment {
 
         final RecyclerView rv = (RecyclerView) view.findViewById(R.id.list);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        XMLAdapter xmlAdapter = new XMLAdapter();
+        rv.setHasFixedSize(true);
+        rv.setItemViewCacheSize(20);
+        rv.setDrawingCacheEnabled(true);
+        rv.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        XMLAdapter xmlAdapter = new XMLAdapter(getContext());
         rv.setAdapter(xmlAdapter);
         String xmlURL = "https://fr-fr.roomlala.com/prod/file/welchome/ad_fr_be.xml";
         xmlAsynctask = new XMLAsynctask(xmlAdapter);

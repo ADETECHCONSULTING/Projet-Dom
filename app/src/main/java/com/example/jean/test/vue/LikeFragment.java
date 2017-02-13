@@ -39,7 +39,12 @@ public class LikeFragment extends Fragment {
 
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.listLike);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        LikeAdapter likeAdapter = new LikeAdapter(getContext(),mainActivity.getMesAnnoncesLike());
+        LikeAdapter likeAdapter = new LikeAdapter(getContext(),mainActivity.mesAnnoncesLike);
         rv.setAdapter(likeAdapter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

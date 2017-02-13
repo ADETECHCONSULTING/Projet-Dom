@@ -1,10 +1,13 @@
 package com.example.jean.test.modele;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by JEAN on 05/02/2017.
  */
 
-public class Annonce {
+public class Annonce implements Parcelable {
     private String id;
     private String url;
     private String title;
@@ -97,5 +100,15 @@ public class Annonce {
 
     public void setPicture_url(String picture_url) {
         this.picture_url = picture_url;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }
