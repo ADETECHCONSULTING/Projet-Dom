@@ -16,26 +16,14 @@ public class Annonce implements Parcelable {
     private String price;
     private String city;
     private String picture_url;
+    private String country;
+    private String priceAttrib;
 
     /**
      * Constructeur de la classe Annonce
-     * @param id
-     * @param url
-     * @param title
-     * @param type
-     * @param content
-     * @param price
-     * @param city
      */
-    public Annonce(String id, String url, String title, String type, String content, String price, String city, String picture_url) {
-        this.id = id;
-        this.url = url;
-        this.title = title;
-        this.type = type;
-        this.content = content;
-        this.price = price;
-        this.city = city;
-        this.picture_url = picture_url;
+    public Annonce() {
+
     }
 
     public String getId() {
@@ -100,6 +88,22 @@ public class Annonce implements Parcelable {
 
     public void setPicture_url(String picture_url) {
         this.picture_url = picture_url;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPriceAttrib() {
+        return priceAttrib;
+    }
+
+    public void setPriceAttrib(String priceAttrib) {
+        this.priceAttrib = priceAttrib;
     }
 
     @Override

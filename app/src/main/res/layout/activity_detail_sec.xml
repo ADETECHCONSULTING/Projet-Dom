@@ -161,7 +161,7 @@
 
         <HorizontalScrollView
             android:layout_width="395dp"
-            android:layout_height="match_parent"
+            android:layout_height="32dp"
             android:id="@+id/horizontalScrollDetail"
             app:layout_constraintBottom_toTopOf="@+id/guideline8"
             android:layout_marginBottom="8dp"

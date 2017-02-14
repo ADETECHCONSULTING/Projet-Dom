@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.example.jean.test.R;
 import com.example.jean.test.modele.Annonce;
-import com.example.jean.test.modele.ImageAsyncTask;
 
 import java.util.ArrayList;
 
@@ -37,7 +36,7 @@ public class DetailActivity extends AppCompatActivity {
     private String city;
     private String content;
     private String detailMaison;
-    private String pays;
+    private String pays = "";
     private int logoId;
     private ArrayList<Annonce> mesAnnoncesLike;
     private ArrayList<Annonce> mesAnnoncesFavorites;
@@ -60,7 +59,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_sec);
+        setContentView(R.layout.activity_detail);
         mesAnnoncesLike = new ArrayList<>();
         mesAnnoncesFavorites = new ArrayList<>();
         mainActivity = new MainActivity();
@@ -120,14 +119,11 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!boolLike) {
-                    mesAnnoncesLike.add(new Annonce(id,url,title,detailMaison,content,prix,city,urlImg[0]));
                     Toast.makeText(DetailActivity.this, "L'annonce a été ajouté à vos coups de coeurs", Toast.LENGTH_SHORT).show();
                     like.setImageDrawable(getResources().getDrawable(R.drawable.favorite_black_48x48));
                     boolLike = true;
                 }else{
                     like.setImageDrawable(getResources().getDrawable(R.drawable.favorite_outline_black_48x48));
-                    Annonce mAnnonce = findAnnonce(id, mesAnnoncesLike);
-                    mesAnnoncesLike.remove(mAnnonce);
                     boolLike = false;
                 }
             }
@@ -141,13 +137,10 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!boolFavoris) {
                     Toast.makeText(DetailActivity.this, "L'annonce a été ajouté à vos favoris", Toast.LENGTH_SHORT).show();
-                    mesAnnoncesFavorites.add(new Annonce(id, url,title,detailMaison,content,prix,city,urlImg[0]));
                     fav.setImageDrawable(getResources().getDrawable(R.drawable.star_black_48x48));
                     boolFavoris = true;
                 }else{
                     fav.setImageDrawable(getResources().getDrawable(R.drawable.star_outline_black_48x48));
-                    Annonce mAnnonce = findAnnonce(id, mesAnnoncesFavorites);
-                    mesAnnoncesFavorites.remove(mAnnonce);
                     boolFavoris = false;
                 }
             }
@@ -171,22 +164,13 @@ public class DetailActivity extends AppCompatActivity {
      * Affiche les détails concernant l'offre selectionnée
      */
     private void AffichageDetail() {
-        for(int i=0; i < urlImg.length; i++) {
-            ImageView imageView = new ImageView(this);
-            imageView.setId(i);
-            String _urlImg = caractereASupprimer(urlImg[i]);
-            imageView.setPadding(2,2,2,2);
-            new ImageAsyncTask(imageView).execute(_urlImg);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            linearHS.addView(imageView);
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        }
         vtitle.setText(title);
         vcity.setText(city +" - "+ pays);
         vprix.setText(prix+" €");
         vdetail.setText(detailMaison);
         getLogoByID(logoId);
         vcontent.setText(content);
+        //new ImageAsyncTask(vimg).execute(solourl);
     }
 
     /**

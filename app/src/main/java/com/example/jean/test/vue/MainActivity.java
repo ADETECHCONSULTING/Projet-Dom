@@ -253,8 +253,6 @@ public class MainActivity extends AppCompatActivity
         return mesAnnoncesFavorites;
     }
 
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

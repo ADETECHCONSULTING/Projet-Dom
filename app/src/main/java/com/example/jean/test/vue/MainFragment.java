@@ -59,7 +59,7 @@ public class MainFragment extends Fragment {
         btnEchere = (Button) view.findViewById(R.id.btnEnchere);
         btnCrowdfunding = (Button) view.findViewById(R.id.btnCrowdfunding);
         btnTout = (Button) view.findViewById(R.id.btnTout);
-
+        getActivity().setTitle("");
         btnAchat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
